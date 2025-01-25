@@ -17,6 +17,7 @@ export default function Header() {
     <View style={styles.container}>
       <Text style={styles.logo}>LOGO</Text>
       <View style={styles.actions}>
+        <SearchScreen/>
         <Text style={styles.actionText} onPress={() => router.push("/")}>
           취소
         </Text>
@@ -24,7 +25,7 @@ export default function Header() {
           완료
         </Text>
       </View>
-     <SearchScreen/>
+    
     </View>
   );
 }

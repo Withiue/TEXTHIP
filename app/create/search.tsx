@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, TextInput, FlatList, Text, Image, StyleSheet } from "react-native";
+import { View, TextInput, FlatList, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { searchBooks } from "./aladinApi";
-
+import { useRouter } from "expo-router";
 interface BookItem {
   id: string;
   title: string;
@@ -10,6 +10,7 @@ interface BookItem {
 }
 
 const SearchScreen: React.FC = () => {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<BookItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -42,14 +43,23 @@ const SearchScreen: React.FC = () => {
           data={books}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={styles.bookItem}>
-
-              <Image source={{ uri: item.cover }} style={styles.coverImage} />
-              <View>
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.author}>{item.author}</Text>
-              </View>
-            </View>
+             <TouchableOpacity 
+             onPress={()=> 
+             router.push({
+                pathname:"/create",
+                params:{
+                    id:item.id,
+                    title:item.title,
+                    author:item.author,
+                    cover:item.cover,
+                }
+             }) }>
+                <View style={styles.bookItem}>
+                    <Image source={{ uri: item.cover }} style={styles.coverImage} /> 
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.author}>{item.author}</Text>             
+                </View> 
+            </TouchableOpacity>
           )}
         />
       )}
