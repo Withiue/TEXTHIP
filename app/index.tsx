@@ -1,6 +1,9 @@
-import { Text, View } from "react-native";
+import React from "react";
+import { View, Text, Button, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
   return (
     <View
       style={{
@@ -9,7 +12,10 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Button
+        title="Go to Create Page"
+        onPress={() => router.push("/create")}
+      />
     </View>
   );
 }

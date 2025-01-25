@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   text: {
     position: "absolute", // 이미지 위에 텍스트를 배치
-    top: "4%", // 이미지 컨테이너의 상단에서 10%
+    top: "4%", // 이미지 컨테이너의 상단에서 10%w
     left: "30%", // 이미지 컨테이너의 왼쪽에서 5%
     transform: [{ rotate: "-6deg" }], // 글씨를 -4도 회전
     fontSize: width * 0.015,
