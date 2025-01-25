@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
+import SearchScreen from "./search";
 
 export default function Header() {
   const [searchText, setSearchText] = useState(""); // 검색어 상태
@@ -23,14 +24,7 @@ export default function Header() {
           완료
         </Text>
       </View>
-      <TextInput
-        style={styles.input}
-        placeholder="제목, 저자, 출판사 검색"
-        value={searchText}
-        onChangeText={(text) => setSearchText(text)}
-        onSubmitEditing={handleSearch} // 엔터 키 입력 시 검색
-        returnKeyType="search" // 키패드에 '검색' 표시
-      />
+     <SearchScreen/>
     </View>
   );
 }
