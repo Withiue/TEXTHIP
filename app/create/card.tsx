@@ -1,6 +1,6 @@
 
 import React from "react";
-import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Image, Text, StyleSheet, Dimensions, requireNativeComponent } from "react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -9,7 +9,7 @@ const Card: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../../assets/images/lineBook1.png")}
+          source={require("../../assets/images/cards/legend110.png")}
           style={styles.image}
           resizeMode="contain"
         />

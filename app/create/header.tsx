@@ -1,62 +1,53 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
-import SearchScreen from "./search";
-
+import React from "react";
+import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
+import {Stack} from "expo-router";
 export default function Header() {
-  const [searchText, setSearchText] = useState(""); // 검색어 상태
+  const { width, height } = useWindowDimensions(); // 화면 크기 가져오기
   const router = useRouter();
-
-  const handleSearch = () => {
-    if (searchText.trim() !== "") {
-      //router.push(`/search?query=${encodeURIComponent(searchText)}`); // 검색 페이지로 이동
-    }
-  };
+  const paddingHorizontal = width * 0.04; // 화면 너비의 4%를 padding으로 설정
+  const paddingTop = height *0.04; // 화면 높이의 5%를 padding으로 설정
+  const fontSize = width * 0.06; // 화면 너비의 6%를 글씨 크기로 설정
+  const buttonSpacing = width * 0.035; // 버튼 간 간격 설정 (화면 크기 대비 비율)
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.logo}>LOGO</Text>
-      <View style={styles.actions}>
-        <SearchScreen/>
-        <Text style={styles.actionText} onPress={() => router.push("/")}>
+    <View style={[styles.container, { paddingTop, paddingHorizontal }]}>
+       <Stack.Screen options={{ headerShown: false }} />
+      <Text style={[styles.logo, { fontSize }]}>Text Hip</Text>
+      <View style={[styles.actions, { marginRight: paddingHorizontal }]}>
+        <Text
+          style={[styles.actionText, { marginRight: buttonSpacing }]}
+          onPress={() => router.push("/")}
+        >
           취소
         </Text>
-        <Text style={styles.actionText} onPress={() => router.push("/")}>
+        <Text
+          style={styles.actionText}
+          onPress={() => router.push("/")}
+        >
           완료
         </Text>
       </View>
-    
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50, // 상태바 공간
-    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between", // 로고와 버튼 영역 간 간격 확보
     backgroundColor: "#fff",
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
   },
   logo: {
-    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 8,
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "flex-end",
-    marginBottom: 8,
+    alignItems: "center",
   },
   actionText: {
     fontSize: 16,
-    marginLeft: 16,
     color: "#888",
-  },
-  input: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#000",
-    fontSize: 16,
-    paddingVertical: 8,
   },
 });

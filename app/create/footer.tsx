@@ -1,0 +1,153 @@
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
+
+const templates = ["인생책", "기간별 추천", "읽고 싶은 책", "책 속 한 줄"];
+const ratios = ["1:1", "4:5", "16:9"];
+const backgrounds = ["0", "#C1FFD7", "#D1D1FF", "#FFE6C1"];
+
+interface FooterProps {
+  selectedTemplate: string;
+  setSelectedTemplate: React.Dispatch<React.SetStateAction<string>>;
+  selectedRatio: string;
+  setSelectedRatio: React.Dispatch<React.SetStateAction<string>>;
+  selectedBackground: number;
+  setSelectedBackground: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const { width, height } = Dimensions.get('screen');
+
+const Footer: React.FC<FooterProps> = ({
+  selectedTemplate,
+  setSelectedTemplate,
+  selectedRatio,
+  setSelectedRatio,
+  selectedBackground,
+  setSelectedBackground,
+}) => {
+  const [activeCategory, setActiveCategory] = useState<"ratio" | "template" | "background" | null>(null);
+ // 화면 크기 가져오기
+  const buttonWidth = Math.min(width * 0.2, 100); // 버튼 너비를 화면 크기에 비례하여 설정, 최대 100
+
+
+  const renderOptions = () => {
+    if (activeCategory === "ratio") {
+      return ratios.map((ratio) => (
+        <TouchableOpacity
+          key={ratio}
+          style={[styles.button, selectedRatio === ratio && styles.selectedButton, { width: buttonWidth }]}
+          onPress={() => setSelectedRatio(ratio)}
+        >
+          <Text style={styles.buttonText}>{ratio}</Text>
+        </TouchableOpacity>
+      ));
+    }
+    if (activeCategory === "template") {
+      return templates.map((template) => (
+        <TouchableOpacity
+          key={template}
+          style={[styles.button, selectedTemplate === template && styles.selectedButton, { width: buttonWidth }]}
+          onPress={() => setSelectedTemplate(template)}
+        >
+          <Text style={styles.buttonText}>{template}</Text>
+        </TouchableOpacity>
+      ));
+    }
+    if (activeCategory === "background") {
+      return backgrounds.map((color, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[
+            styles.colorButton,
+            { backgroundColor: color, width: buttonWidth / 2, height: buttonWidth / 2 }, // 버튼 크기 비율 조정
+            selectedBackground === index && styles.selectedColor,
+          ]}
+          onPress={() => setSelectedBackground(index)}
+        />
+      ));
+    }
+    return null;
+  };
+
+  return (
+    <>
+
+      <View style={styles.container}>
+      {/* 상위 카테고리 버튼 */}
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity onPress={() => setActiveCategory("ratio")}>
+          <Text style={[styles.categoryButton, activeCategory === "ratio" && styles.activeCategory]}>비율</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActiveCategory("template")}>
+          <Text style={[styles.categoryButton, activeCategory === "template" && styles.activeCategory]}>템플릿</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActiveCategory("background")}>
+          <Text style={[styles.categoryButton, activeCategory === "background" && styles.activeCategory]}>배경</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* 하위 카테고리 옵션 */}
+      <View style={styles.optionsContainer}>{renderOptions()}</View>
+    </View>
+    </>
+
+  );
+};
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "rgba(28, 28, 30, 1)",
+    justifyContent: "space-between", // 위와 아래에 요소 배치
+  },
+  buttonGroup: {
+    backgroundColor:"#fff",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: height * 0.01, // 버튼 그룹과 하단 옵션 간의 간격
+    paddingBottom: height * 0.02, // Footer 근처로 이동
+  },
+  categoryButton: {
+    fontSize: Math.max(12, width * 0.04), // 텍스트 크기 비율 조정
+    padding: Math.max(6, width * 0.02), // 텍스트 패딩 동적 설정
+    color: "#333",
+  },
+  activeCategory: {
+    fontWeight: "bold",
+    color: "#007BFF",
+  },
+  optionsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginBottom: height * 0.05, // 하단 간격 조정
+  },
+  button: {
+    padding: Math.max(8, width * 0.02), // 버튼 패딩 비율 설정
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: Math.max(4, width * 0.01), // 버튼 모서리 반응형
+    margin: Math.max(4, width * 0.01), // 버튼 간격 반응형
+  },
+  selectedButton: {
+    backgroundColor: "#ddd",
+  },
+  buttonText: {
+    fontSize: Math.max(12, width * 0.04), // 버튼 텍스트 크기
+    textAlign: "center",
+  },
+  colorButton: {
+    borderRadius: Math.max(20, width * 0.05), // 색상 버튼 반응형
+    margin: Math.max(4, width * 0.01), // 색상 버튼 간격
+    width: Math.max(40, width * 0.1), // 색상 버튼 크기
+    height: Math.max(40, width * 0.1),
+  },
+  selectedColor: {
+    borderWidth: 2,
+    borderColor: "#000",
+  },
+});
+
+
+
+export default Footer;

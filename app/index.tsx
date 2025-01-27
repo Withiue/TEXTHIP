@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter,Stack } from "expo-router";
 
 export default function Index() {
   const router = useRouter();
@@ -12,6 +12,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
+      <Stack.Screen options={{headerShown:false}} />
       <Button
         title="Go to Create Page"
         onPress={() => router.push("/create")}
