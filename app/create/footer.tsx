@@ -99,6 +99,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(28, 28, 30, 1)",
     justifyContent: "space-between", // 위와 아래에 요소 배치
+    bottom:0,
+    marginBottom:0,
+    width: width, // 화면 너비와 동일하게 설정
+    position: "absolute", // 절대 위치로 설정
+
   },
   buttonGroup: {
     backgroundColor:"#fff",

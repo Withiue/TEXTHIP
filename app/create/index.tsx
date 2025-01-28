@@ -1,27 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, useWindowDimensions,SafeAreaView } from "react-native";
 import Header from "./header";
-import SearchScreen from "./search";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {Stack} from "expo-router";
 import CreateCard from "./CreateCard";
 
 const CreatePage: React.FC = () => {
   const { width } = useWindowDimensions(); // 현재 화면의 너비
-  const [selectedTemplate, setSelectedTemplate] = useState("인생책");
-  const [selectedRatio, setSelectedRatio] = useState("1:1");
-  const [selectedBackground, setSelectedBackground] = useState(0);
 
   const imageSize = width * 0.6; // 화면 너비의 60%로 이미지 크기 설정
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView style={styles.safeContainer} >
       <View style={styles.container}>
         <Stack.Screen options={{ headerShown: false }} />
         <Header />
-        <GestureHandlerRootView style={{ flex: 1, backgroundColor: "transparent" }}>
-          <SearchScreen />
-        </GestureHandlerRootView> 
         <CreateCard/>
       </View>
     </SafeAreaView>
@@ -32,7 +24,7 @@ const CreatePage: React.FC = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: "#fff", // 전체 배경색 설정
+    backgroundColor: "#fff", // 전체 배경색 설정,
   },
   container: {
     flex: 1,
