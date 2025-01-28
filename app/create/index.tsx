@@ -4,17 +4,26 @@ import Header from "./header";
 import {Stack} from "expo-router";
 import CreateCard from "./CreateCard";
 
-const CreatePage: React.FC = () => {
-  const { width } = useWindowDimensions(); // 현재 화면의 너비
 
+const CreatePage: React.FC = () => {
+  const [selectedBook, setSelectedBook] = useState<{
+    id: string;
+    title: string;
+    author: string;
+    cover: string;
+  } | null>(null);
+ 
+  const { width } = useWindowDimensions(); // 현재 화면의 너비
   const imageSize = width * 0.6; // 화면 너비의 60%로 이미지 크기 설정
 
   return (
     <SafeAreaView style={styles.safeContainer} >
       <View style={styles.container}>
         <Stack.Screen options={{ headerShown: false }} />
-        <Header />
-        <CreateCard/>
+        {/* Header에 검색 결과 업데이트 함수 전달 */}
+        <Header setSelectedBook={setSelectedBook} />
+        {/* CreateCard에 선택된 책 데이터 전달 */}
+        <CreateCard selectedBook={selectedBook} />
       </View>
     </SafeAreaView>
    

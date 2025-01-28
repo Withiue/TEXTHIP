@@ -24,14 +24,16 @@ interface BookItem {
 }
 
 const { width, height } = Dimensions.get("screen");
-
-const SearchScreen: React.FC = () => {
+interface SearchScreenProps { //부모의 상태를 업데이트 해주는 상태
+  onBookSelect: (book: { id: string; title: string; author: string; cover: string }) => void;
+}
+const SearchScreen: React.FC<SearchScreenProps> = ({ onBookSelect }) => {
   const router = useRouter();
   const [query, setQuery] = useState(""); // 검색창에 입력된 검색어
   const [books, setBooks] = useState<BookItem[]>([]); // 검색 결과: 책 리스트
   const [loading, setLoading] = useState(false); // 검색 중 여부
   const [modalVisible, setModalVisible] = useState(false); // 모달 표시 여부
-
+ 
   const handleSearch = async () => {
     setLoading(true);
     try {
@@ -87,19 +89,10 @@ const SearchScreen: React.FC = () => {
                     data={books}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                      <TouchableOpacity
-                        onPress={() =>
-                          router.push({
-                            pathname: "/create",
-                            params: {
-                              id: item.id,
-                              title: item.title,
-                              author: item.author,
-                              cover: item.cover,
-                            },
-                          })
-                        }
-                      >
+                      <TouchableOpacity onPress={() => {
+                        onBookSelect(item);
+                        setModalVisible(false); // 모달 닫기
+                      }}>
                         <View style={styles.bookItem}>
                           <Image
                             source={{ uri: item.cover }}

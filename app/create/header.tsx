@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -10,8 +9,13 @@ import {
 import SearchScreen from "./search";
 
 const { width, height } = Dimensions.get("screen");
+interface HeaderProps {
+  setSelectedBook: (book: { id: string; title: string; author: string; cover: string }) => void;
+}
 
-export default function Header() {
+const Header: React.FC<HeaderProps> = ({ setSelectedBook }) => {
+
+
   return (
     <View style={styles.container}>
       {/* 상단 로고와 버튼 */}
@@ -28,7 +32,7 @@ export default function Header() {
       </View>
       {/* 검색 바 */}
       <View style={styles.searchRow}>
-        <SearchScreen/>
+        <SearchScreen onBookSelect={setSelectedBook} />
       </View>
     </View>
   );
@@ -80,3 +84,5 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 });
+
+export default Header;
