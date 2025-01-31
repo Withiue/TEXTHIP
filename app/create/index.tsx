@@ -9,8 +9,12 @@ const CreatePage: React.FC = () => {
   const [selectedBook, setSelectedBook] = useState<{
     id: string;
     title: string;
-    author: string;
-    cover: string;
+    author: string; 
+    cover: string; 
+    pubDate:Date; 
+    isbn:string; 
+    priceSales:number;
+    publisher:string; 
   } | null>(null);
  
   const { width } = useWindowDimensions(); // 현재 화면의 너비

@@ -10,7 +10,18 @@ import SearchScreen from "./search";
 
 const { width, height } = Dimensions.get("screen");
 interface HeaderProps {
-  setSelectedBook: (book: { id: string; title: string; author: string; cover: string }) => void;
+  setSelectedBook:
+   (book: 
+    { id: string;
+      title: string; 
+      author: string; 
+      cover: string;
+      pubDate:Date; 
+      isbn:string; 
+      priceSales:number;
+      publisher:string;  
+    } 
+  ) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ setSelectedBook }) => {
@@ -42,9 +53,8 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     position: "absolute", // 절대 위치 설정
-    top: 0, // 화면 상단에 배치
-    paddingHorizontal: width * 0.04,
-  //  backgroundColor: "#fff",
+    top: "3%", // 화면 상단에 배치
+    paddingHorizontal: width * 0.05,
     zIndex: 10, // z-index로 우선 순위 설정
   },
   topRow: {
@@ -69,20 +79,9 @@ const styles = StyleSheet.create({
   searchRow: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: width * 0.02,
-    paddingHorizontal: width * 0.03,
-    height: height * 0.06,
+    height: height * 0.05,
   },
-  searchIcon: {
-    fontSize: width * 0.05,
-    color: "#fff",
-    marginRight: width * 0.02,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: width * 0.045,
-    color: "#fff",
-  },
+ 
 });
 
 export default Header;

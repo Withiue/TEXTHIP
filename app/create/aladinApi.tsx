@@ -16,14 +16,19 @@ export const searchBooks = async (query: string) => {
         Cover: "Big",
       },
     });
+    console.log("API 응답 데이터:", JSON.stringify(response.data.item, null, 2));
 
-    // 데이터 추출 및 파싱
     const items = response.data.item || [];
     return items.map((item: any) => ({
       id: item.itemId,
       title: item.title,
       author: item.author,
       cover: item.cover, // 책 표지 URL
+      pubDate:item.pubDate,
+      isbn:item.isbn,
+      priceSales:item.priceSales,
+      publisher:item.publisher,
+
     }));
   } catch (error) {
     console.error("Error fetching books:", error);

@@ -21,11 +21,25 @@ interface BookItem {
   title: string;
   author: string;
   cover: string;
+  pubDate:Date; 
+  isbn:string; 
+  priceSales:number;
+  publisher:string;  
 }
 
 const { width, height } = Dimensions.get("screen");
 interface SearchScreenProps { //부모의 상태를 업데이트 해주는 상태
-  onBookSelect: (book: { id: string; title: string; author: string; cover: string }) => void;
+  onBookSelect:  (book: 
+    { id: string;
+      title: string; 
+      author: string; 
+      cover: string;
+      pubDate:Date; 
+      isbn:string; 
+      priceSales:number;
+      publisher:string;  
+    } 
+  ) => void;
 }
 const SearchScreen: React.FC<SearchScreenProps> = ({ onBookSelect }) => {
   const router = useRouter();
@@ -123,28 +137,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   searchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: width * 0.04,
+    flexDirection: "row", // 수평 정렬
+    alignItems: "center", // 세로 중앙 정렬
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    paddingVertical: height * 0.02,
+    borderBottomColor: "black",
   },
   searchInputContainer: {
-    width: "100%",
-    backgroundColor: "#f0f0f0",
-    borderRadius: width * 0.02,
-    paddingHorizontal: width * 0.03,
-    height: height * 0.06,
+    flex: 1, // 남은 공간을 검색창이 채우도록 설정
     justifyContent: "center",
+    paddingHorizontal: width * 0.01,
+    height: height * 0.05,
   },
   fakeInput: {
     flexDirection: "row",
     alignItems: "center",
   },
   searchIcon: {
-    width: width * 0.05,
-    height: width * 0.05,
+    width: width * 0.06, // 검색 아이콘 크기
+    height: width * 0.06,
     marginRight: width * 0.02,
   },
   searchPlaceholder: {
@@ -166,7 +176,6 @@ const styles = StyleSheet.create({
   modalInput: {
     fontSize: width * 0.045,
     borderBottomWidth: 1,
-    //borderBottomColor: "#ccc",
     marginBottom: height * 0.02,
   },
   loadingText: {
