@@ -13,6 +13,7 @@ export const searchBooks = async (query: string) => {
         SearchTarget: "Book", // 검색 대상
         output: "JS", // JSON 포맷
         Version: "20131101", // API 버전
+        Cover: "Big",
       },
     });
 

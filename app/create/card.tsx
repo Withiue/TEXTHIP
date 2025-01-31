@@ -8,11 +8,11 @@ const Card: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={require("../../assets/images/cards/legend110.png")}
+        {/* <Image
+          // source={require("../../assets/images/cards/legend110.png")}
           style={styles.image}
           resizeMode="contain"
-        />
+        /> */}
         <Text style={styles.text}>윤짜요's 책 속 한 줄</Text>
       </View>
     </View>

@@ -58,11 +58,12 @@ const SearchScreen: React.FC<SearchScreenProps> = ({ onBookSelect }) => {
           style={styles.searchInputContainer}
           onPress={() => setModalVisible(true)}
         >
-          <View style={styles.fakeInput}>
+          <View style={styles.fakeInput}>     
             <Image
               source={require("../../assets/icons/search.png")}
               style={styles.searchIcon}
             />
+       
             <Text style={styles.searchPlaceholder}>제목, 저자, 출판사</Text>
           </View>
         </TouchableOpacity>

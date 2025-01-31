@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
 
-const templates = ["인생책", "기간별 추천", "읽고 싶은 책", "책 속 한 줄"];
+const templates = ["인생책", "기간별", "읽고싶은책", "책속한줄"];
 const ratios = ["1:1", "4:5", "16:9"];
-const backgrounds = ["0", "#C1FFD7", "#D1D1FF", "#FFE6C1"];
+const backgrounds = [
+  require("../../assets/icons/colorChoice/grey.png"), // 배경 아이콘 이미지
+  require("../../assets/icons/colorChoice/pink.png"),
+  require("../../assets/icons/colorChoice/orange.png"),
+  require("../../assets/icons/colorChoice/yellow.png"),
+  require("../../assets/icons/colorChoice/purple.png"),
+];
+
 
 interface FooterProps {
   selectedTemplate: string;
@@ -53,16 +60,15 @@ const Footer: React.FC<FooterProps> = ({
       ));
     }
     if (activeCategory === "background") {
-      return backgrounds.map((color, index) => (
+      return backgrounds.map((icon, index) => (
         <TouchableOpacity
           key={index}
           style={[
-            styles.colorButton,
-            { backgroundColor: color, width: buttonWidth / 2, height: buttonWidth / 2 }, // 버튼 크기 비율 조정
-            selectedBackground === index && styles.selectedColor,
-          ]}
+          styles.iconButton,selectedBackground === index && styles.selectedIcon]}
           onPress={() => setSelectedBackground(index)}
-        />
+        >
+          <Image source={icon} style={styles.icon}/>
+        </TouchableOpacity>
       ));
     }
     return null;
@@ -150,6 +156,21 @@ const styles = StyleSheet.create({
   selectedColor: {
     borderWidth: 2,
     borderColor: "#000",
+  },
+  iconButton: {
+    margin: Math.max(4, width * 0.01),
+    borderRadius: Math.max(20, width * 0.05),
+    borderWidth: 2,
+    borderColor: "transparent",
+    overflow: "hidden",
+  },
+  selectedIcon: {
+    borderColor: "#007BFF",
+  },
+  icon: {
+    width: Math.max(40, width * 0.1),
+    height: Math.max(40, width * 0.1),
+    resizeMode: "contain",
   },
 });
 
