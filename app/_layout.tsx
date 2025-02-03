@@ -16,6 +16,12 @@ export default function Layout() {
         header: () => <Header />
       }} />
       <Stack.Screen 
+        name="create/card"
+        options={{
+          headerShown: true,
+          header: () => <Header />
+        }} />
+      <Stack.Screen 
         name="share/index" 
         options={{
           headerShown: true,
