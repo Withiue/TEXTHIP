@@ -33,6 +33,25 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-asset",
+        {
+          "assets": [
+            "./assets/images/example.png"
+          ]
+        }
+      ],
+      [
+        "react-native-share",
+        {
+          "android": [
+            "com.facebook.katana",
+            "com.instagram.android",
+            "com.twitter.android",
+            "com.zhiliaoapp.musically"
+          ]
+        }
       ]
     ],
     "experiments": {
