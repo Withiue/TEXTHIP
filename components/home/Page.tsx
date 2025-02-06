@@ -1,30 +1,24 @@
 // 각 Carousel item 하나.
 import React from 'react';
-import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, Image, ImageStyle } from 'react-native';
 
 type IPage = {
   item: {
     num: number;
-    color: string;
+    image: number;
   };
-  style: ViewStyle;
+  style: ImageStyle;
 }
 
 export default function Page({ item, style }: IPage) {
   return (
-    <View style={[styles.pageItem, { backgroundColor: item.color }, style]}>
-      <Text style={styles.pageNum}>{item.num}</Text>
-    </View>
+    <Image style={[styles.pageImage, style]} source={item.image}/>
   );
 }
 
 const styles = StyleSheet.create({
-  pageItem: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  pageImage: {
+    width: '100%',
     borderRadius: 20,
-  },
-  pageNum: {
-    // 여기에 Text에 대한 스타일을 추가
   },
 });

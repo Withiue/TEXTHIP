@@ -5,27 +5,32 @@ import { router } from 'expo-router';
 import CardScroll from '@/components/home/CardScroll';
 import ThemeGallery from '@/components/home/ThemeGallery';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const PAGES = [
   {
     num: 1,
     color: '#86E3CE',
+    image: require('@/assets/images/legend169yellow.png'),
   },
   {
     num: 2,
     color: '#D0E6A5',
+    image: require('@/assets/images/legend169yellow.png'),
   },
   {
     num: 3,
     color: '#FFDD94',
+    image: require('@/assets/images/legend169yellow.png'),
   },
   {
     num: 4,
     color: '#FA897B',
+    image: require('@/assets/images/legend169yellow.png'),
   },
   {
     num: 5,
     color: '#CCABD8',
+    image: require('@/assets/images/legend169yellow.png'),
   },
 ];
 
@@ -34,21 +39,20 @@ export default function Home() {
 
   const handleThemeSelect = (themeId: React.SetStateAction<string>) => {
     setSelectedTheme(themeId);
-    // CardScroll ÄÄÆ÷³ÍÆ®¿¡ ¼±ÅÃµÈ Å×¸¶ Àü´Ş
+    // CardScroll ì»´í¬ë„ŒíŠ¸ì— ì„ íƒëœ í…Œë§ˆ ì „ë‹¬
   };
 
   return (
     <View style={styles.container}>
       <CardScroll 
-        gap={width * 0.05} // È­¸é ³ÊºñÀÇ 5%
-        offset={width * 0.235} // È­¸é ³ÊºñÀÇ 23.5%
+        gap={width * 0.05} // í™”ë©´ ë„ˆë¹„ì˜ 5%
+        offset={width * 0.2} // í™”ë©´ ë„ˆë¹„ì˜ 20%
         pages={PAGES}
-        pageWidth={width * 0.43}
-        pageHeight={height}
+        pageWidth={width * (1 - (0.05 + 0.2) * 2)}
          />
       <View>
         <Button
-          title="Make a Card"
+          title="ì œì‘í•˜ê¸°"
           onPress={() => router.push('/create/card')}
         />
       </View>
