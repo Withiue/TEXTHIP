@@ -4,42 +4,15 @@ import { router } from 'expo-router';
 
 import CardScroll from '@/components/home/CardScroll';
 import ThemeGallery from '@/components/home/ThemeGallery';
+import { themeImages, ThemeId } from '@/data/themeData';
 
 const { width } = Dimensions.get('window');
-const PAGES = [
-  {
-    num: 1,
-    color: '#86E3CE',
-    image: require('@/assets/images/legend169yellow.png'),
-  },
-  {
-    num: 2,
-    color: '#D0E6A5',
-    image: require('@/assets/images/legend169yellow.png'),
-  },
-  {
-    num: 3,
-    color: '#FFDD94',
-    image: require('@/assets/images/legend169yellow.png'),
-  },
-  {
-    num: 4,
-    color: '#FA897B',
-    image: require('@/assets/images/legend169yellow.png'),
-  },
-  {
-    num: 5,
-    color: '#CCABD8',
-    image: require('@/assets/images/legend169yellow.png'),
-  },
-];
 
 export default function Home() {
-  const [selectedTheme, setSelectedTheme] = useState('best');
+  const [selectedTheme, setSelectedTheme] = useState<ThemeId>('legend');
 
-  const handleThemeSelect = (themeId: React.SetStateAction<string>) => {
-    setSelectedTheme(themeId);
-    // CardScroll 컴포넌트에 선택된 테마 전달
+  const handleThemeSelect = (themeId: ThemeId) => {
+    setSelectedTheme(themeId); // CardScroll 컴포넌트에 선택된 테마 전달
   };
 
   return (
@@ -47,7 +20,7 @@ export default function Home() {
       <CardScroll 
         gap={width * 0.05} // 화면 너비의 5%
         offset={width * 0.2} // 화면 너비의 20%
-        pages={PAGES}
+        pages={themeImages[selectedTheme]}
         pageWidth={width * (1 - (0.05 + 0.2) * 2)}
          />
       <View>

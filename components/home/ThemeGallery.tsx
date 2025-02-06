@@ -1,34 +1,46 @@
 // ThemeGallery.tsx
 import React from 'react';
-import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const themes = [
+import CustomText from '../CustomText';
+import { ThemeId } from '@/data/themeData';
+
+type ThemeGalleryProps = {
+  onThemeSelect: (themeId: ThemeId) => void;
+  selectedTheme: ThemeId;
+};
+
+const themes: Array<{
+  id: ThemeId;
+  title: string;
+  image: any;
+}> = [
   {
-    id: 'best',
-    title: 'best book',
-    image: require('@/assets/images/background-image.png')
+    id: 'legend',
+    title: '인생책 추천',
+    image: require('@/assets/images/legend169yellow.png')
   },
   {
-    id: 'time',
-    title: 'time book',
-    image: require('@/assets/images/background-image.png')
+    id: 'period',
+    title: '기간별 추천',
+    image: require('@/assets/images/period169purple.png')
   },
   {
-    id: 'wishlist',
-    title: 'wish book',
-    image: require('@/assets/images/background-image.png')
+    id: 'want',
+    title: '읽고 싶은 책',
+    image: require('@/assets/images/want169pink.png')
   },
   {
-    id: 'quote',
-    title: 'quote',
-    image: require('@/assets/images/background-image.png')
+    id: 'line',
+    title: '책 속 한 줄',
+    image: require('@/assets/images/line169yellow.png')
   }
 ];
 
-const ThemeGallery = ({ onThemeSelect, selectedTheme }) => {
+const ThemeGallery: React.FC<ThemeGalleryProps> = ({ onThemeSelect, selectedTheme }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Look Around</Text>
+      <CustomText style={styles.title}>둘러보기</CustomText>
       <View style={styles.gallery}>
         {themes.map((theme) => (
           <TouchableOpacity
@@ -40,7 +52,7 @@ const ThemeGallery = ({ onThemeSelect, selectedTheme }) => {
             onPress={() => onThemeSelect(theme.id)}
           >
             <Image source={theme.image} style={styles.themeImage} />
-            <Text style={styles.themeTitle}>{theme.title}</Text>
+            <CustomText style={styles.themeTitle}>{theme.title}</CustomText>
           </TouchableOpacity>
         ))}
       </View>
@@ -55,7 +67,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: 'normal',
     marginBottom: 12,
   },
   gallery: {
