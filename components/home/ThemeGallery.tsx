@@ -47,7 +47,6 @@ const ThemeGallery: React.FC<ThemeGalleryProps> = ({ onThemeSelect, selectedThem
             key={theme.id}
             style={[
               styles.themeContainer,
-              selectedTheme === theme.id && styles.selectedTheme
             ]}
             onPress={() => onThemeSelect(theme.id)}
           >
@@ -78,11 +77,6 @@ const styles = StyleSheet.create({
   themeContainer: {
     width: '23%',
     marginBottom: 10,
-  },
-  selectedTheme: {
-    borderWidth: 2,
-    borderColor: '#2952e3',
-    borderRadius: 8,
   },
   themeImage: {
     width: '100%',

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Dimensions } from 'react-native';
-import { router } from 'expo-router';
+import { View, StyleSheet, Dimensions } from 'react-native';
 
 import CardScroll from '@/components/home/CardScroll';
 import ThemeGallery from '@/components/home/ThemeGallery';
 import { themeImages, ThemeId } from '@/data/themeData';
+import GoCardButton from '@/components/home/GoCardButton';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default function Home() {
   const [selectedTheme, setSelectedTheme] = useState<ThemeId>('legend');
@@ -23,12 +23,10 @@ export default function Home() {
         pages={themeImages[selectedTheme]}
         pageWidth={width * (1 - (0.05 + 0.2) * 2)}
          />
-      <View>
-        <Button
-          title="제작하기"
-          onPress={() => router.push('/create/card')}
-        />
-      </View>
+      <GoCardButton
+        buttonWidth={width * 0.305}
+        buttonHeight={height * 0.05625}
+      />
       <ThemeGallery 
         selectedTheme={selectedTheme}
         onThemeSelect={handleThemeSelect}
