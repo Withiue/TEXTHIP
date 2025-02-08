@@ -86,7 +86,7 @@ const SearchScreen: React.FC<SearchScreenProps> = ({ onBookSelect }) => {
       {/* 모달 */}
       {modalVisible && (
         <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-          <View style={styles.modalBackground}>
+          <View style={[StyleSheet.absoluteFillObject, styles.modalBackground]}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.modalContainer}>
                 <TextInput
@@ -127,12 +127,13 @@ const SearchScreen: React.FC<SearchScreenProps> = ({ onBookSelect }) => {
           </View>
         </TouchableWithoutFeedback>
       )}
-    </KeyboardAvoidingView>
+   </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+   // width:"100%",
     flex: 1,
     backgroundColor: "#fff",
   },
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     flex: 1, // 남은 공간을 검색창이 채우도록 설정
     justifyContent: "center",
     paddingHorizontal: width * 0.01,
-    height: height * 0.05,
+    height: height * 0.06,
   },
   fakeInput: {
     flexDirection: "row",
@@ -162,16 +163,21 @@ const styles = StyleSheet.create({
     color: "#888",
   },
   modalBackground: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    ...StyleSheet.absoluteFillObject,
+    //flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)", 
     justifyContent: "flex-start",
+    width:"100%",
   },
   modalContainer: {
     backgroundColor: "#fff",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    padding: width * 0.04,
-    height: height *0.8, // 모달 높이 제한
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    width: "100%", // 좌우로 꽉 채우기
+    height: height*0.9, // 필요에 따라 조정
+    // paddingHorizontal: width * 0.04, // 양쪽 패딩 추가
+    // paddingVertical: height * 0.02, // 상하 패딩 추가
+    zIndex:100,
   },
   modalInput: {
     fontSize: width * 0.045,
@@ -187,12 +193,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
-    paddingVertical: height * 0.02,
+    paddingVertical: height * 0.015,
+    paddingHorizontal: width * 0.04, // 양쪽 여백
   },
   bookCover: {
-    width: width * 0.12,
-    height: height * 0.09,
+    width: width * 0.15, // 표지 크기 조정
+    height: height * 0.1, // 표지 비율 유지
     marginRight: width * 0.03,
+    borderRadius: 4, // 모서리 둥글게
   },
   title: {
     fontWeight: "bold",

@@ -55,7 +55,22 @@ const Footer: React.FC<FooterProps> = ({
           style={[styles.button, selectedTemplate === template && styles.selectedButton, { width: buttonWidth }]}
           onPress={() => setSelectedTemplate(template)}
         >
-          <Text style={styles.buttonText}>{template}</Text>
+        {template==="인생책" &&(
+          <Text style={styles.buttonText}>인생책 추천</Text>
+        )}
+          
+        {template==="기간별" &&(
+          <Text style={styles.buttonText}>기간별 추천</Text>
+        )}
+          
+        {template==="읽고싶은책" &&(
+          <Text style={styles.buttonText}>읽고 싶은 책</Text>
+        )}
+          
+        {template==="책속한줄" &&(
+          <Text style={styles.buttonText}>책 속 한 줄</Text>
+        )}
+          
         </TouchableOpacity>
       ));
     }
@@ -116,12 +131,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: height * 0.01, // 버튼 그룹과 하단 옵션 간의 간격
-    paddingBottom: height * 0.02, // Footer 근처로 이동
+    paddingBottom: height * 0.03, // Footer 근처로 이동
   },
   categoryButton: {
     fontSize: Math.max(12, width * 0.04), // 텍스트 크기 비율 조정
     padding: Math.max(6, width * 0.02), // 텍스트 패딩 동적 설정
-    color: "#333",
+    //color: "#333",
   },
   activeCategory: {
     fontWeight: "bold",

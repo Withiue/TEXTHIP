@@ -1,11 +1,28 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, useWindowDimensions,SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, useWindowDimensions,SafeAreaView } from "react-native";
 import Header from "./header";
 import {Stack} from "expo-router";
 import CreateCard from "./CreateCard";
-
+import  { useFonts } from 'expo-font';
 
 const CreatePage: React.FC = () => {
+
+  const [fontsLoaded] = useFonts({
+    "SUIT-Thin": require("../../assets/fonts/SUIT-Thin.ttf"),
+    "SUIT-ExtraLight": require("../../assets/fonts/SUIT-ExtraLight.ttf"),
+    "SUIT-Light": require("../../assets/fonts/SUIT-Light.ttf"),
+    "SUIT-Regular": require("../../assets/fonts/SUIT-Regular.ttf"),
+    "SUIT-Medium": require("../../assets/fonts/SUIT-Medium.ttf"),
+    "SUIT-SemiBold": require("../../assets/fonts/SUIT-SemiBold.ttf"),
+    "SUIT-Bold": require("../../assets/fonts/SUIT-Bold.ttf"),
+    "SUIT-ExtraBold": require("../../assets/fonts/SUIT-ExtraBold.ttf"),
+    "SUIT-Heavy": require("../../assets/fonts/SUIT-Heavy.ttf"),
+  });
+  if (!fontsLoaded) {
+    return <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <Text>Loading Fonts...</Text>
+    </View>;
+  }
   const [selectedBook, setSelectedBook] = useState<{
     id: string;
     title: string;
@@ -16,9 +33,7 @@ const CreatePage: React.FC = () => {
     priceSales:number;
     publisher:string; 
   } | null>(null);
- 
-  const { width } = useWindowDimensions(); // 현재 화면의 너비
-  const imageSize = width * 0.6; // 화면 너비의 60%로 이미지 크기 설정
+
 
   return (
     <SafeAreaView style={styles.safeContainer} >
@@ -27,7 +42,7 @@ const CreatePage: React.FC = () => {
         {/* Header에 검색 결과 업데이트 함수 전달 */}
         <Header setSelectedBook={setSelectedBook} />
         {/* CreateCard에 선택된 책 데이터 전달 */}
-        <CreateCard selectedBook={selectedBook} />
+        <CreateCard selectedBook={selectedBook} fontsLoaded={fontsLoaded} />
       </View>
     </SafeAreaView>
    
@@ -44,22 +59,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center", // 세로 방향 중앙 정렬
     alignItems: "center", // 가로 방향 중앙 정렬
-    paddingBottom: 32, // 하단 여백 추가
+    paddingBottom: 10, // 하단 여백 추가
   },
-  content: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  image: {
-    resizeMode: "contain",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 16,
-    textAlign: "center",
-  },
+ 
 });
 
 export default CreatePage;

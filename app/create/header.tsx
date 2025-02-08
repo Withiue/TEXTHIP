@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     position: "absolute", // 절대 위치 설정
-    top: "3%", // 화면 상단에 배치
+    top: "2%", // 화면 상단에 배치
     paddingHorizontal: width * 0.05,
     zIndex: 10, // z-index로 우선 순위 설정
   },
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   searchRow: {
     flexDirection: "row",
     alignItems: "center",
-    height: height * 0.05,
+    height: height * 0.04,
   },
  
 });
