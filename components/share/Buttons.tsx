@@ -1,22 +1,26 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, ImageSourcePropType } from "react-native";
 
 import DownloadButton from "@/components/share/DownloadButton";
 import ShareButton from "@/components/share/ShareButton";
 
 const { width } = Dimensions.get('window');
 
-export default function CardImage() {
+interface ButtonsProps {
+    imgPath: ImageSourcePropType;
+}
+
+const Buttons = ({ imgPath }: ButtonsProps) => {
 
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
-                <DownloadButton />
+                <DownloadButton imgPath={imgPath} />
                 <ShareButton />
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -32,3 +36,5 @@ const styles = StyleSheet.create({
     width: '100%',
 }
 });
+
+export default Buttons;

@@ -1,10 +1,13 @@
-import React from "react";
-import { View, Dimensions, Image, StyleSheet } from "react-native";
+import React from 'react';
+import { View, Dimensions, Image, StyleSheet, ImageSourcePropType } from "react-native";
 
-export default function CardImage() {
-    const { width: screenWidth } = Dimensions.get('window');
-    const imgPath = require('@/assets/images/legend11pink.png');
-    
+interface CardImageProps {
+    imgPath: ImageSourcePropType;
+}
+
+const CardImage = ({ imgPath }: CardImageProps) => {
+    const { width: screenWidth } = Dimensions.get('window');    
+
     const styles = StyleSheet.create({
         container: {
             width: screenWidth,
@@ -24,4 +27,6 @@ export default function CardImage() {
             <Image style={styles.imageContainer} source={imgPath} />
         </View>
     );
-}
+};
+
+export default CardImage;
