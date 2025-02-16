@@ -1,8 +1,8 @@
 import { router } from "expo-router";
 import { TouchableOpacity, StyleSheet } from "react-native";
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'; //sharp 아이콘으로 바꿔야함!!
 
 import CustomText from '@/components/CustomText';
+import EditSvg from '@/components/home/EditSvg';
 
 type IButton = {
     buttonWidth: number;
@@ -15,7 +15,7 @@ export default function GoCardButton({buttonWidth, buttonHeight}: IButton) {
         style={[styles.button, {width: buttonWidth, height: buttonHeight}]}
         onPress={() => router.push('/create/card')}
         >
-        <MaterialCommunityIcons name="pencil" size={20} color="white" />
+        <EditSvg />
         <CustomText style={styles.text}>제작하기</CustomText>
       </TouchableOpacity>
     )
