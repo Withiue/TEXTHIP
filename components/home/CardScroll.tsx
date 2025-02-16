@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Animated,
-  useAnimatedValue,
-  ImageStyle,
-} from 'react-native';
-
+import { View, StyleSheet, Dimensions } from 'react-native';
+import Carousel from 'react-native-reanimated-carousel';
+import Animated, { 
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import Page from './Page';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 type ICarousel = {
   gap: number;
@@ -17,74 +16,71 @@ type ICarousel = {
   pageWidth: number;
 }
 
-export default function CardScroll({pages, pageWidth, gap, offset}: ICarousel) {
-  const [page, setPage] = useState(0);
-  const scrollX = useAnimatedValue(0); // ½ºÅ©·Ñ À§Ä¡¸¦ ÃßÀû
-  const cardHeight = pageWidth * (16 / 9); // Ä«µå ¼½¼ÇÀÇ ³ôÀÌ¸¦ ³Êºñ ±âÁØÀ¸·Î °è»ê (16:9)
-  const flatListRef = React.useRef<FlatList>(null);
+export default function CardScroll({ pages, pageWidth, gap, offset }: ICarousel) {
 
-  // pages propÀÌ º¯°æµÉ ¶§¸¶´Ù Ã¹ ÆäÀÌÁö·Î ½ºÅ©·Ñ
-  useEffect(() => {
-    setPage(0);
-    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
-  }, [pages]);
+  const cardHeight = pageWidth * (16 / 9);  // ì¹´ë“œ ì„¹ì…˜ì˜ ë†’ì´ë¥¼ ë„ˆë¹„ ê¸°ì¤€ìœ¼ë¡œ ê³„ì‚° (16:9)
 
-  function renderItem({ item, index }: { item: any; index: number }) {
-    // scale(Å©±â) ¾Ö´Ï¸ÞÀÌ¼Ç °ª °è»ê (ÇöÀç ÆäÀÌÁö´Â 100%, ³ª¸ÓÁö´Â 75%)
-    const scale = scrollX.interpolate({
-      inputRange : [
-        (index - 1) * (pageWidth + gap),  //ÀÌÀü ÆäÀÌÁö
-        index * (pageWidth + gap),        //ÇöÀç ÆäÀÌÁö
-        (index + 1) * (pageWidth + gap),  //´ÙÀ½ ÆäÀÌÁö
-      ],
-      outputRange: [0.75, 1, 0.75],
-      extrapolate: 'clamp', // ¼³Á¤µÈ ¹üÀ§¸¦ ¹þ¾î³ªÁö ¾ÊÀ½
+  const renderItem = ({ item, index, animationValue }: any) => {
+    const animatedStyle = useAnimatedStyle(() => {
+      const scale = interpolate(
+        animationValue.value,
+        [-1, 0, 1],
+        [0.75, 1, 0.75]
+      );
+
+      return {
+        transform: [{ scale }],
+      };
     });
-    
+
     return (
-      <Animated.View>
-        <Page item={item} style={{width: pageWidth, height: cardHeight, marginHorizontal: gap / 2} as ImageStyle} />
+      <Animated.View style={[animatedStyle, { width: pageWidth }]}>
+        <Page 
+          item={item} 
+          style={{
+            width: pageWidth,
+            height: cardHeight,
+            marginHorizontal: gap / 2
+          }}
+        />
       </Animated.View>
     );
-  }
-
-  //onScroll ÅëÇØ focusµÈ page index È®ÀÎ °¡´É
-  //onScroll ÇÏ¸é -1, +1 ÀÎµ¦½º Å©±â°¡ scale ¸¸Å­ ÁÙ¾îµé°Ô ÇÏ°í ½ÍÀ½
-  const onScroll = (e: any) => {
-    const newPage = Math.round(
-      e.nativeEvent.contentOffset.x / (pageWidth + gap),
-    );
-    setPage(newPage);
   };
 
   return (
-    <View style={styles.outerContainer}>
-    <View style={{ height: cardHeight }}>
-      <FlatList
-        ref={flatListRef}
-        automaticallyAdjustContentInsets={false}
-        contentContainerStyle={{
-          paddingHorizontal: offset + gap / 2, // pageÀÇ ¾çÂÊ margin
-        }}
-        data={pages}
-        horizontal
-        keyExtractor={(item: any) => `page__${item.color}`}
-        onScroll={onScroll}
-        renderItem={renderItem}
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled // ÆäÀÌÁö ÀÌµ¿ ´ÜÀ§ ±ò²ûÇÏ°Ô
-        decelerationRate="fast" // ÆäÀÌÁö ÀÌµ¿ ´ÜÀ§ ±ò²ûÇÏ°Ô
-        snapToInterval={pageWidth + gap} // ÆäÀÌÁö ÀÌµ¿ ´ÜÀ§ ±ò²ûÇÏ°Ô
-        snapToAlignment="start" // ÆäÀÌÁö ÀÌµ¿ ´ÜÀ§ ±ò²ûÇÏ°Ô
-        scrollEventThrottle={16} // ºÎµå·¯¿î ¾Ö´Ï¸ÞÀÌ¼ÇÀ» À§ÇÑ ¼³Á¤
-      />
-    </View></View>
+    <View style={styles.container}>
+      <View style={[styles.carouselContainer, { height: cardHeight }]}>
+        <Carousel
+          loop={true}
+          width={pageWidth + gap}
+          height={cardHeight}
+          data={pages}
+          renderItem={renderItem}
+          style={{
+            width: SCREEN_WIDTH,
+            height: cardHeight,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          mode="parallax"
+          modeConfig={{
+            parallaxScrollingScale: 1,
+            parallaxScrollingOffset: 30,
+          }}
+          snapEnabled={true}
+        />
+      </View>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  outerContainer: {
+  container: {
     flex: 1,
+    justifyContent: 'center',
+  },
+  carouselContainer: {
+    alignItems: 'center',
     justifyContent: 'center',
   },
 });
