@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import Animated, { 
@@ -20,7 +20,7 @@ export default function CardScroll({ pages, pageWidth, gap, offset }: ICarousel)
 
   const cardHeight = pageWidth * (16 / 9);  // 카드 섹션의 높이를 너비 기준으로 계산 (16:9)
 
-  const renderItem = ({ item, index, animationValue }: any) => {
+  const renderItem = ({ item, animationValue }: any) => {
     const animatedStyle = useAnimatedStyle(() => {
       const scale = interpolate(
         animationValue.value,

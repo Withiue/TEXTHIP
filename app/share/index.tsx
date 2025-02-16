@@ -6,7 +6,7 @@ import Buttons from '@/components/share/Buttons';
 
 
 export default function Share() {
-  const imgPath = require('@/assets/images/legend169yellow.png');
+  const imgPath = require('@/assets/images/legend169example.png');
 
   return (
     <View style={styles.container}>
