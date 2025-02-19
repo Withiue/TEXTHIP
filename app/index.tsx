@@ -1,15 +1,19 @@
+// 온보딩 화면
 import { Text, View, StyleSheet } from 'react-native';
- import { Link } from 'expo-router'; 
+import { Link } from 'expo-router'; 
 
-export default function Index() {
+export default function FirstPage() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>First screen</Text>
+      <Link href="/onboarding" style={styles.button}>
+        웰컴 화면으로
+      </Link>
       <Link href="/home" style={styles.button}>
-        Go to Home screen
+        홈 화면으로
       </Link>
       <Link href="/share" style={styles.button}>
-        Go to Share screen
+        공유 화면으로
       </Link>
     </View>
   );

@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar, Platform } from 'react-native';
 
-export default function Header() {
+export default function Header({ showHeaderContent = true, title = "Text Hip" }) {
   return (
     <View style={styles.container}>
       <StatusBar 
         barStyle="dark-content" 
         backgroundColor="white"
       />
-      <View style={styles.header}>
-        <Text style={styles.title}>Text Hip</Text>
-      </View>
+      {showHeaderContent && (
+        <View style={styles.header}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -18,13 +20,11 @@ export default function Header() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    // iOS ³ëÄ¡ µğÀÚÀÎ ´ëÀÀ
+    // iOS ë…¸ì¹˜ ë””ìì¸ ëŒ€ì‘
     paddingTop: Platform.OS === 'ios' ? 50 : StatusBar.currentHeight,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
   },
   header: {
-    height: 44, // iOS ±âº» Çì´õ ³ôÀÌ
+    height: 44, // iOS ê¸°ë³¸ í—¤ë” ë†’ì´
     justifyContent: 'center',
     paddingHorizontal: 16,
   },
