@@ -1,9 +1,9 @@
+
 import { Dimensions} from "react-native";
-const { width, height } = Dimensions.get("screen");
 
 const FigmaWidth = 1080;
 
-const scaleFont = (size: number) => (Dimensions.get("window").width / FigmaWidth) * size;
+const scale = (size: number) => (Dimensions.get("window").width / FigmaWidth) * size;
 
 export const BookCoverPosition:Record<string, Record<string, any>> = {
     "인생책": { //check
@@ -12,9 +12,12 @@ export const BookCoverPosition:Record<string, Record<string, any>> = {
       "16:9": { widthRatio: 0.1, heightRatio: 0.0634, topRatio: 0.37, leftRatio: 0.608 }, //fixed
     },
     "기간별": {
-      "1:1": { widthRatio: 0.25, heightRatio: 0.15, topRatio: 0.34, leftRatio: 0.79 },
-      "4:5": { widthRatio: 0.2, heightRatio: 0.1, topRatio: 0.36, leftRatio: 0.67 },
-      "16:9": { widthRatio: 0.12, heightRatio: 0.07, topRatio: 0.38, leftRatio: 0.62 },
+      "1:1": { widthRatio: 0.195, heightRatio: 0.133, topRatio: 0.292, leftRatio: 0.67, transform: [{ rotate: "6deg" }], borderRadius:scale(13.52)
+              ,topRatio2:1.07,leftRatio2:0.138,transform2:[{ rotate: "-4.6deg" }], },//fixed
+      "4:5": { widthRatio: 0.163, heightRatio: 0.11, topRatio: 0.306, leftRatio: 0.637, transform: [{ rotate: "6deg" }], borderRadius:scale(13.52)
+              ,topRatio2:1.08,leftRatio2:0.195,transform2:[{ rotate: "-4.6deg" }], },//fixed
+      "16:9":{ widthRatio: 0.111, heightRatio: 0.077, topRatio: 0.338, leftRatio: 0.598, transform: [{ rotate: "6deg" }], borderRadius:scale(10) 
+              ,topRatio2:1.03,leftRatio2:0.288,transform2:[{ rotate: "-4.6deg" }],},//fixed
     },
     "읽고싶은책": {
       "1:1": { widthRatio: 0.16, heightRatio: 0.10, topRatio: 0.30, leftRatio: 0.42 }, //fixed
@@ -31,50 +34,48 @@ export const BookCoverPosition:Record<string, Record<string, any>> = {
 
   export const NicknameInput:Record<string, Record<string, any>> = {
     "인생책": { //check
-      "1:1": {fontSize:scaleFont(24),   transform: [{ rotate: "3deg" }], color:"white",topRatio: 0.256, leftRatio: 0.087 }, //fixed
-      "4:5":{fontSize:scaleFont(24),   transform: [{ rotate: "3deg" }], color:"white",topRatio: 0.294, leftRatio: 0.18 },  //fixed
-      "16:9": {fontSize:scaleFont(18),   transform: [{ rotate: "3deg" }], color:"white",topRatio: 0.327, leftRatio: 0.27 },  //fixed
+      "1:1": {fontSize:scale(24),   transform: [{ rotate: "3deg" }], color:"white",topRatio: 0.256, leftRatio: 0.087 }, //fixed
+      "4:5":{fontSize:scale(24),   transform: [{ rotate: "3deg" }], color:"white",topRatio: 0.294, leftRatio: 0.18 },  //fixed
+      "16:9": {fontSize:scale(18),   transform: [{ rotate: "3deg" }], color:"white",topRatio: 0.327, leftRatio: 0.27 },  //fixed
     },
     "기간별": {
-      "1:1":{fontSize:scaleFont(24),   transform: [{ rotate: "-3deg" }], color:"white",topRatio: 0.328, leftRatio: 0.747 }, 
-      "4:5":{fontSize:10,   transform: [{ rotate: "-3deg" }], color:"white",topRatio: 0.328, leftRatio: 0.747 }, 
-      "16:9": {fontSize:10,   transform: [{ rotate: "-3deg" }], color:"white",topRatio: 0.328, leftRatio: 0.747 }, 
+      "1:1":{fontSize:scale(30),   transform: [{ rotate: "6deg" }], color:"black",topRatio: 0.27, leftRatio: 0.1 }, //fixed
+      "4:5":{fontSize:scale(25.07),   transform: [{ rotate: "6deg" }], color:"black",topRatio: 0.284, leftRatio: 0.165 }, //fixed
+      "16:9": {fontSize:scale(19),   transform: [{ rotate: "6deg" }], color:"black",topRatio: 0.32, leftRatio: 0.26 }, //ficed
     },
-    "읽고싶은책": {
-      "1:1": {fontSize:scaleFont(24),   transform: [{ rotate: "0deg" }], color:"black",topRatio: 0.26, leftRatio: 0.385 }, //fixed
-      "4:5":{fontSize:9,   transform: [{ rotate: "0deg" }], color:"black",topRatio: 0.267, leftRatio: 0.398 }, //fixed
-      "16:9": {fontSize:8,   transform: [{ rotate: "0deg" }], color:"black",topRatio: 0.285, leftRatio: 0.415 }, //fixed
+    "읽고싶은책": { 
+      "1:1": {fontSize:scale(24),   transform: [{ rotate: "00deg" }], color:"black",topRatio: 0.26, leftRatio: 0.385 }, //fixed
+      "4:5":{fontSize:scale(24),   transform: [{ rotate: "0deg" }], color:"black",topRatio: 0.267, leftRatio: 0.398 }, //fixed
+      "16:9": {fontSize:scale(20),   transform: [{ rotate: "0deg" }], color:"black",topRatio: 0.285, leftRatio: 0.415 }, //fixed
     },
-    "책속한줄": {
-      "1:1": {fontSize:10,   transform: [{ rotate: "-3deg" }], color:"white",topRatio: 0.328, leftRatio: 0.747 }, 
-      "4:5":{fontSize:10,   transform: [{ rotate: "-3deg" }], color:"white",topRatio: 0.328, leftRatio: 0.747 }, 
-      "16:9": {fontSize:10,   transform: [{ rotate: "-3deg" }], color:"white",topRatio: 0.328, leftRatio: 0.747 }, 
+    "책속한줄": {//fixed
+      "1:1": {fontSize:scale(30),fontFamily:"SUIT-Medium" ,  transform: [{ rotate: "-4deg" }], color:"white",topRatio: 0.224, leftRatio: 0.09 }, 
+      "4:5": {fontSize:scale(24),fontFamily:"SUIT-SemiBold" ,  transform: [{ rotate: "-4deg" }], color:"white",topRatio: 0.283, leftRatio: 0.17 }, 
+      "16:9": {fontSize:scale(19),fontFamily:"SUIT-Bold" ,  transform: [{ rotate: "-4deg" }], color:"white",topRatio: 0.232, leftRatio: 0.225 }, 
     },
   };
-  // top:"50%",
-  // left:"50%",
-  // fontSize : 10,
+
 
   export const  Title_Author:Record<string, Record<string, any>> = {
     "인생책": { //check
-      "1:1": {fontSize:scaleFont(30),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.534,authorTopRatio:0.505, leftRatio: 0.537 }, 
-      "4:5":{fontSize:scaleFont(24),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.497, authorTopRatio: 0.477,leftRatio: 0.502 }, 
-      "16:9": {fontSize:scaleFont(18),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.472,authorTopRatio:0.456, leftRatio: 0.502  },  
+      "1:1": {fontSize:scale(30),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.534,authorTopRatio:0.505, leftRatio: 0.537 }, 
+      "4:5":{fontSize:scale(24),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.497, authorTopRatio: 0.477,leftRatio: 0.502 }, 
+      "16:9": {fontSize:scale(18),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.472,authorTopRatio:0.456, leftRatio: 0.502  },  
     },
     "기간별": {
-      "1:1": {fontSize:10,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.534,authorTopRatio:0.505, leftRatio: 0.537 }, 
-      "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.497, authorTopRatio: 0.497,leftRatio: 0.502 }, 
-      "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.472,authorTopRatio:0.472, leftRatio: 0.502  }, 
+      "1:1": {fontSize:scale(19),   transform: [{ rotate: "6deg" }],titleTopRatio: 0.33,authorTopRatio:0, leftRatio: 0,marginBottom:4,paddingRight:165 }, //fixed
+      "4:5":{fontSize:scale(16),   transform: [{ rotate: "6deg" }],titleTopRatio: 0.339, authorTopRatio: 0,leftRatio: 0,marginBottom:4,paddingRight:172 }, //fixed
+      "16:9": {fontSize:scale(10),   transform: [{ rotate: "6deg" }],titleTopRatio: 0.365,authorTopRatio:0, leftRatio: 0.49,marginBottom:2.8,paddingRight:182  }, //fixed
     },
     "읽고싶은책": {
-      "1:1": {fontSize:scaleFont(22),   transform: [{ rotate: "0deg" }],titleTopRatio: 0.44,authorTopRatio:0.45, leftRatio: 0.62 }, 
-      "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.497, authorTopRatio: 0.497,leftRatio: 0.537 }, 
-      "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.472,authorTopRatio:0.472, leftRatio: 0.502  }, 
+      "1:1": {fontSize:scale(20), titleTopRatio: 0.441,paddingRight:105,marginBottomDefault:6,marginBottomMax:30 }, //fixed
+      "4:5":{fontSize:scale(19), titleTopRatio: 0.429,paddingRight:115,marginBottomDefault:5,marginBottomMax:24  }, //fixed
+      "16:9": {fontSize:scale(14),titleTopRatio: 0.43,paddingRight:141,marginBottomDefault:6.5,marginBottomMax:29   }, //fixed
     },
     "책속한줄": {
-      "1:1": {fontSize:10,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.534,authorTopRatio:0.505, leftRatio: 0.537 }, 
-      "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.497, authorTopRatio: 0.497,leftRatio: 0.502 }, 
-      "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],titleTopRatio: 0.472,authorTopRatio:0.472, leftRatio: 0.502  }, 
+      "1:1": {fontSize:scale(30), fontFailmy :"SUIT-Bold",  transform: [{ rotate: "-6deg" }],titleTopRatio: 0.534,authorTopRatio:0.505, leftRatio: 0.537 }, 
+      "4:5":{fontSize:8,   transform: [{ rotate: "-6deg" }],titleTopRatio: 0.497, authorTopRatio: 0.497,leftRatio: 0.502 }, 
+      "16:9": {fontSize:6,   transform: [{ rotate: "-6deg" }],titleTopRatio: 0.472,authorTopRatio:0.472, leftRatio: 0.502  }, 
     },
   };
 
@@ -86,20 +87,20 @@ export const BookCoverPosition:Record<string, Record<string, any>> = {
       "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],topRatio: 0.335, leftRatio: 0.06,lineHeight:19.5,widthRatio:0.33 }, 
       "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],topRatio: 0.355, leftRatio: 0.108,lineHeight:13.5,widthRatio:0.23}, 
     },
-    "기간별": {
-      "1:1": {fontSize:10,   transform: [{ rotate: "0deg" }],topRatio: 0.315, leftRatio: 0.013,lineHeight:25,widthRatio:0.45}, 
-      "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],topRatio: 0.335, leftRatio: 0.06,lineHeight:19.5,widthRatio:0.33 }, 
-      "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],topRatio: 0.355, leftRatio: 0.108,lineHeight:13.5,widthRatio:0.23}, 
+    "기간별": { //fixed
+      "1:1": {fontSize:scale(22),   transform: [{ rotate: "-4.5deg" }],topRatio: 0.50, leftRatio: 0.175,lineHeight:15,widthRatio:0.53}, 
+      "4:5":{fontSize:scale(20),   transform: [{ rotate: "-4.5deg" }],topRatio: 0.495, leftRatio: 0.181,lineHeight:13,widthRatio:0.45 }, 
+      "16:9": {fontSize:scale(14),   transform: [{ rotate: "-4.5deg" }],topRatio: 0.468, leftRatio: 0.194,lineHeight:10,widthRatio:0.315}, 
     },
-    "읽고싶은책": {
-      "1:1": {fontSize:10,   transform: [{ rotate: "0deg" }],topRatio: 0.315, leftRatio: 0.013,lineHeight:25,widthRatio:0.45}, 
-      "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],topRatio: 0.335, leftRatio: 0.06,lineHeight:19.5,widthRatio:0.33 }, 
-      "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],topRatio: 0.355, leftRatio: 0.108,lineHeight:13.5,widthRatio:0.23}, 
+    "읽고싶은책": { //사용안 함 
+      "1:1": {}, 
+      "4:5":{}, 
+      "16:9": {}, 
     },
     "책속한줄": {
-      "1:1": {fontSize:10,   transform: [{ rotate: "0deg" }],topRatio: 0.315, leftRatio: 0.013,lineHeight:25,widthRatio:0.45}, 
-      "4:5":{fontSize:8,   transform: [{ rotate: "0deg" }],topRatio: 0.335, leftRatio: 0.06,lineHeight:19.5,widthRatio:0.33 }, 
-      "16:9": {fontSize:6,   transform: [{ rotate: "0deg" }],topRatio: 0.355, leftRatio: 0.108,lineHeight:13.5,widthRatio:0.23}, 
+      "1:1": {fontSize:scale(36), fontFamily:"SUIT-Regular",  transform: [{ rotate: "-6deg" }],topRatio: 0.3, leftRatio: 0.07,lineHeight:25,widthRatio:0.85}, 
+      "4:5":{fontSize:8,   transform: [{ rotate: "-6deg" }],topRatio: 0.335, leftRatio: 0.06,lineHeight:19.5,widthRatio:0.33 }, 
+      "16:9": {fontSize:6,   transform: [{ rotate: "-6deg" }],topRatio: 0.355, leftRatio: 0.108,lineHeight:13.5,widthRatio:0.23}, 
     },
   };
 

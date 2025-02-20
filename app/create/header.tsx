@@ -28,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({ setSelectedBook }) => {
 
 
   return (
+    <>
     <View style={styles.container}>
       {/* 상단 로고와 버튼 */}
       <View style={styles.topRow}>
@@ -40,12 +41,14 @@ const Header: React.FC<HeaderProps> = ({ setSelectedBook }) => {
             <Text style={styles.actionText}>완료</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      {/* 검색 바 */}
-      <View style={styles.searchRow}>
+      </View> 
+        {/* 검색 바 */}
+      {/* <View style={styles.searchRow}>
         <SearchScreen onBookSelect={setSelectedBook} />
-      </View>
+      </View> */}
     </View>
+
+    </>
   );
 }
 
@@ -79,7 +82,8 @@ const styles = StyleSheet.create({
   searchRow: {
     flexDirection: "row",
     alignItems: "center",
-    height: height * 0.04,
+   // position:"relative",
+    height: height * 0.03,
   },
  
 });

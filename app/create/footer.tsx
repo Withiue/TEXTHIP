@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
+
+const ratios = ["1:1","4:5","16:9"];
 const templates = ["인생책", "기간별", "읽고싶은책", "책속한줄"];
-const ratios = ["1:1", "4:5", "16:9"];
 const backgrounds = [
-  require("../../assets/icons/colorChoice/grey.png"), // 배경 아이콘 이미지
+  require("../../assets/icons/colorChoice/grey.png"),
   require("../../assets/icons/colorChoice/pink.png"),
   require("../../assets/icons/colorChoice/orange.png"),
   require("../../assets/icons/colorChoice/yellow.png"),
   require("../../assets/icons/colorChoice/purple.png"),
 ];
+
+const ratioImages: Record<string, { default: any; white: any }> = {
+  "1:1": {
+    default: require("../../assets/icons/ratios/rectangle11grey.png"),
+    white: require("../../assets/icons/ratios/rectangle11white.png"),
+  },
+  "4:5": {
+    default: require("../../assets/icons/ratios/rectangle45grey.png"),
+    white: require("../../assets/icons/ratios/rectangle45white.png"),
+  },
+  "16:9": {
+    default: require("../../assets/icons/ratios/rectangle169grey.png"),
+    white: require("../../assets/icons/ratios/rectangle169white.png"),
+  },
+};
+
+
 
 
 interface FooterProps {
@@ -21,7 +40,7 @@ interface FooterProps {
   setSelectedBackground: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
 const Footer: React.FC<FooterProps> = ({
   selectedTemplate,
@@ -31,77 +50,76 @@ const Footer: React.FC<FooterProps> = ({
   selectedBackground,
   setSelectedBackground,
 }) => {
-  const [activeCategory, setActiveCategory] = useState<"ratio" | "template" | "background" | null>(null);
- // 화면 크기 가져오기
-  const buttonWidth = Math.min(width * 0.2, 100); // 버튼 너비를 화면 크기에 비례하여 설정, 최대 100
-
-
+  const [activeCategory, setActiveCategory] = useState<"ratio" | "template" | "background">("ratio");
+  
   const renderOptions = () => {
     if (activeCategory === "ratio") {
-      return ratios.map((ratio) => (
-        <TouchableOpacity
-          key={ratio}
-          style={[styles.button, selectedRatio === ratio && styles.selectedButton, { width: buttonWidth }]}
-          onPress={() => setSelectedRatio(ratio)}
-        >
-          <Text style={styles.buttonText}>{ratio}</Text>
-        </TouchableOpacity>
-      ));
+      return (
+        <View style={styles.optionsContainer}>
+        {ratios.map((value) => (
+          <TouchableOpacity
+            key={value}
+            style={styles.optionContainer}
+            onPress={() => setSelectedRatio(value)}
+          >
+            <Image
+              source={selectedRatio === value ? ratioImages[value].white : ratioImages[value].default}
+              style={styles.icon}
+            />
+            <Text style={[styles.buttonText, selectedRatio === value && styles.selectedText]}>
+              {value}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      );
     }
     if (activeCategory === "template") {
       return templates.map((template) => (
-        <TouchableOpacity
-          key={template}
-          style={[styles.button, selectedTemplate === template && styles.selectedButton, { width: buttonWidth }]}
-          onPress={() => setSelectedTemplate(template)}
-        >
-        {template==="인생책" &&(
-          <Text style={styles.buttonText}>인생책 추천</Text>
-        )}
-          
-        {template==="기간별" &&(
-          <Text style={styles.buttonText}>기간별 추천</Text>
-        )}
-          
-        {template==="읽고싶은책" &&(
-          <Text style={styles.buttonText}>읽고 싶은 책</Text>
-        )}
-          
-        {template==="책속한줄" &&(
-          <Text style={styles.buttonText}>책 속 한 줄</Text>
-        )}
-          
+        <TouchableOpacity key={template} style={styles.optionContainer} onPress={() => setSelectedTemplate(template)}>
+          <MaterialIcons
+            name={
+              template === "인생책"
+                ? "book"
+                : template === "기간별"
+                ? "calendar-today"
+                : template === "읽고싶은책"
+                ? "import-contacts"
+                : "article"
+            }
+            size={26}
+            color={selectedTemplate === template ? "white" : "#8E8E93"}
+          />
+          <Text style={[styles.buttonText, selectedTemplate === template && styles.selectedText]}>
+            {template === "인생책" ? "인생책 추천" : template === "기간별" ? "기간별 추천" : template === "읽고싶은책" ? "읽고 싶은 책" : "책 속 한 줄"}
+          </Text>
         </TouchableOpacity>
       ));
     }
     if (activeCategory === "background") {
       return backgrounds.map((icon, index) => (
-        <TouchableOpacity
-          key={index}
-          style={[
-          styles.iconButton,selectedBackground === index && styles.selectedIcon]}
-          onPress={() => setSelectedBackground(index)}
-        >
-          <Image source={icon} style={styles.icon}/>
+        <TouchableOpacity key={index} style={styles.optionContainer} onPress={() => setSelectedBackground(index)}>
+          <Image source={icon} style={styles.icon} />
         </TouchableOpacity>
       ));
     }
     return null;
   };
-
+  
   return (
-    <>
-
-      <View style={styles.container}>
+    <View style={styles.container}>
       {/* 상위 카테고리 버튼 */}
       <View style={styles.buttonGroup}>
-        <TouchableOpacity onPress={() => setActiveCategory("ratio")}>
-          <Text style={[styles.categoryButton, activeCategory === "ratio" && styles.activeCategory]}>비율</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveCategory("template")}>
+        <TouchableOpacity onPress={() => setActiveCategory("template")} style={styles.categoryButtonContainer}>
+          <MaterialIcons name="my-library-books" size={26} color={activeCategory === "template" ? "black" : "#A5A5A9"} />
           <Text style={[styles.categoryButton, activeCategory === "template" && styles.activeCategory]}>템플릿</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActiveCategory("background")}>
+        <TouchableOpacity onPress={() => setActiveCategory("ratio")} style={styles.categoryButtonContainer}>
+          <MaterialIcons name="content-copy" size={24} color={activeCategory === "ratio" ? "black" : "#A5A5A9"} />
+          <Text style={[styles.categoryButton, activeCategory === "ratio" && styles.activeCategory]}>비율</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActiveCategory("background")} style={styles.categoryButtonContainer}>
+          <MaterialIcons name="texture" size={24} color={activeCategory === "background" ? "black" : "#A5A5A9"} />
           <Text style={[styles.categoryButton, activeCategory === "background" && styles.activeCategory]}>배경</Text>
         </TouchableOpacity>
       </View>
@@ -109,86 +127,67 @@ const Footer: React.FC<FooterProps> = ({
       {/* 하위 카테고리 옵션 */}
       <View style={styles.optionsContainer}>{renderOptions()}</View>
     </View>
-    </>
-
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "rgba(28, 28, 30, 1)",
-    justifyContent: "space-between", // 위와 아래에 요소 배치
-    bottom:0,
-    marginBottom:0,
-    width: width, // 화면 너비와 동일하게 설정
-    position: "absolute", // 절대 위치로 설정
-
+    justifyContent: "space-between",
+    bottom: 0,
+    marginBottom: 0,
+    width: width,
+    position: "absolute",
   },
   buttonGroup: {
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: height * 0.01, // 버튼 그룹과 하단 옵션 간의 간격
-    paddingBottom: height * 0.03, // Footer 근처로 이동
+    paddingBottom: height * 0.01,
+   
+  },
+  categoryButtonContainer: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   categoryButton: {
-    fontSize: Math.max(12, width * 0.04), // 텍스트 크기 비율 조정
-    padding: Math.max(6, width * 0.02), // 텍스트 패딩 동적 설정
-    //color: "#333",
+    fontSize: Math.max(width * 0.035),
+    padding: Math.max(6, width * 0.02),
+    color: "#8E8E93",
   },
   activeCategory: {
-    fontWeight: "bold",
-    color: "#007BFF",
+    color: "black",
   },
   optionsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    marginBottom: height * 0.02,
+    marginTop:height * 0.02,
+    justifyContent: "space-evenly", // 균등한 간격 유지
+    height:height*0.07,
+  },
+  optionContainer: {
+    
+    alignItems: "center",
     justifyContent: "center",
-    marginBottom: height * 0.05, // 하단 간격 조정
-  },
-  button: {
-    padding: Math.max(8, width * 0.02), // 버튼 패딩 비율 설정
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: Math.max(4, width * 0.01), // 버튼 모서리 반응형
-    margin: Math.max(4, width * 0.01), // 버튼 간격 반응형
-  },
-  selectedButton: {
-    backgroundColor: "#ddd",
+   // marginHorizontal: width * 0.01, //하위 아이콘 간격
+    width: width*0.18, // 최소 너비 추가하여 버튼 크기 일정하게 유지
+    paddingVertical: 10, // 터치 영역 균일하게 설정
   },
   buttonText: {
-    fontSize: Math.max(12, width * 0.04), // 버튼 텍스트 크기
+    fontSize: Math.max(width * 0.035),
     textAlign: "center",
+    color: "#8E8E93",
+    marginTop: 5, // 아이콘과 텍스트 간격 조정
   },
-  colorButton: {
-    borderRadius: Math.max(20, width * 0.05), // 색상 버튼 반응형
-    margin: Math.max(4, width * 0.01), // 색상 버튼 간격
-    width: Math.max(40, width * 0.1), // 색상 버튼 크기
-    height: Math.max(40, width * 0.1),
-  },
-  selectedColor: {
-    borderWidth: 2,
-    borderColor: "#000",
-  },
-  iconButton: {
-    margin: Math.max(4, width * 0.01),
-    borderRadius: Math.max(20, width * 0.05),
-    borderWidth: 2,
-    borderColor: "transparent",
-    overflow: "hidden",
-  },
-  selectedIcon: {
-    borderColor: "#007BFF",
+  selectedText: {
+    color: "white",
   },
   icon: {
-    width: Math.max(40, width * 0.1),
-    height: Math.max(40, width * 0.1),
+    width: width*0.08,
+    height:width*0.08,
     resizeMode: "contain",
   },
 });
-
-
 
 export default Footer;

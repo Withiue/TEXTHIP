@@ -40,6 +40,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "packageOpts":{
+      "config":"metro.config.js",
+      "sourceExts":["svg"],
+      "transtormer":"node_modules/react-native-svg-transtormer/index.js"
     }
+
   }
 }
