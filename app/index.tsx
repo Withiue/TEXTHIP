@@ -1,20 +1,29 @@
-// 온보딩 화면
-import { Text, View, StyleSheet } from 'react-native';
-import { Link } from 'expo-router'; 
+import React from "react";
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { useRouter } from 'expo-router';
 
-export default function FirstPage() {
+export default function Index() {
+  const router = useRouter();
+  
   return (
     <View style={styles.container}>
       <Text style={styles.text}>First screen</Text>
-      <Link href="/onboarding" style={styles.button}>
-        웰컴 화면으로
-      </Link>
-      <Link href="/home" style={styles.button}>
-        홈 화면으로
-      </Link>
-      <Link href="/share" style={styles.button}>
-        공유 화면으로
-      </Link>
+      <Button
+        title="웰컴 화면으로"
+        onPress={() => router.push("/onboarding")}
+      />
+      <Button
+        title="홈 화면으로"
+        onPress={() => router.push("/home")}
+      />
+      <Button
+        title="카드 만들기 화면으로"
+        onPress={() => router.push("/create")}
+      />
+      <Button
+        title="공유 화면으로"
+        onPress={() => router.push("/share")}
+      />
     </View>
   );
 }

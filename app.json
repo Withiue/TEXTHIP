@@ -16,6 +16,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "navigationBar": {
+        "visible": false
+      },
       "package": "com.anonymous.TEXTHIP"
     },
     "web": {
@@ -41,10 +44,17 @@
             "./assets/images/example.png"
           ]
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "packageOpts":{
+      "config":"metro.config.js",
+      "sourceExts":["svg"],
+      "transtormer":"node_modules/react-native-svg-transtormer/index.js"
     }
+
   }
 }
