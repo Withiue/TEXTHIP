@@ -20,7 +20,7 @@ export default function Layout() {
           header: () => <Header />
         }} />
         <Stack.Screen 
-          name="create/card"
+          name="create/index"
           options={{
             headerShown: true,
             header: () => <Header />
@@ -28,7 +28,7 @@ export default function Layout() {
         <Stack.Screen 
           name="share/index" 
           options={{
-            headerShown: true,
+            headerShown: false,
             header: () => <Header />
           }}
         />

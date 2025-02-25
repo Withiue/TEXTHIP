@@ -1,4 +1,4 @@
-import apiClient from "../../utils/apiClient";
+import apiClient from "../utils/apiClient";
 
 const API_URL = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
 

@@ -9,7 +9,7 @@ import UploadSvg from '@/utils/upload';
 const { width, height } = Dimensions.get('window');
 
 const ShareButton = () => {
-  const imgPath = require('@/assets/images/legend169example.png');
+  const imgPath = require('@/assets/images/cards/legend169example.png');
 
   const onShare = async () => {
     try {

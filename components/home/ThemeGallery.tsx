@@ -18,22 +18,22 @@ const themes: Array<{
   {
     id: 'legend',
     title: '인생책 추천',
-    image: require('@/assets/images/legend169yellow.png')
+    image: require('@/assets/images/cards/legend169yellow.png')
   },
   {
     id: 'period',
     title: '기간별 추천',
-    image: require('@/assets/images/period169purple.png')
+    image: require('@/assets/images/cards/period169purple.png')
   },
   {
     id: 'want',
     title: '읽고 싶은 책',
-    image: require('@/assets/images/want169pink.png')
+    image: require('@/assets/images/cards/want169pink.png')
   },
   {
     id: 'line',
     title: '책 속 한 줄',
-    image: require('@/assets/images/line169yellow.png')
+    image: require('@/assets/images/cards/line169yellow.png')
   }
 ];
 
