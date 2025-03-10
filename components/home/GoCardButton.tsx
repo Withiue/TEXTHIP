@@ -13,7 +13,7 @@ export default function GoCardButton({buttonWidth, buttonHeight}: IButton) {
     return (
       <TouchableOpacity
         style={[styles.button, {width: buttonWidth, height: buttonHeight}]}
-        onPress={() => router.push('/create/card')}
+        onPress={() => router.push('/create')}
         >
         <EditSvg />
         <CustomText style={styles.text}>제작하기</CustomText>
